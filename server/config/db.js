@@ -4,7 +4,7 @@ mongoose.set("strictQuery", false)
 
 const connectDB = async () => {
     try {
-        mongoose.connect(process.env.MONGO_URI, {
+        await mongoose.connect(process.env.MONGO_URI, {
             useUnifiedTopology: true
         })
     } catch (error) {
