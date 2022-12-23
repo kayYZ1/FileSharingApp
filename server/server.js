@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 import {v2 as cloudinary} from "cloudinary"
 
 import fileRoute from "./routes/files.js"
-import connectDB from "./config/db.js"
+import connectionDB from "./config/db.js";
 
 const app = express()
 
@@ -16,7 +16,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-connectDB()
+connectionDB()
 
 app.use(cors())
 app.use(express.json())
