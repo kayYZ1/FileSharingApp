@@ -20,7 +20,7 @@ export default function Home() {
         data: formData,
         url: "api/files/upload",
         headers: {
-          "Content-Type": "multipart/form-data; boundary=MyBoundary"
+          "Content-Type": "multipart/form-data"
         }
       })
       setDownloadPageLink(data.downloadPageLink)

@@ -10,7 +10,7 @@ const RenderFile = ({file:{format, sizeInBytes, name}}) => {
   )
 }
 
-const sizeInMb = (bytes) => `${(bytes/(1024*1024)).toFixed(2)} Mb`
+const sizeInMb = (bytes) => `${(bytes/(1024*1024)).toFixed(2)}mb`
 
 
 export default RenderFile
