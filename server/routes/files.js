@@ -4,7 +4,7 @@ import {v2 as cloudinary} from "cloudinary"
 
 const router = express.Router()
 
-const storage =multer.diskStorage({})
+const storage = multer.diskStorage({})
 
 let upload = multer({
     storage
@@ -12,9 +12,7 @@ let upload = multer({
 
 router.post("/upload", upload.single("myFile"), async (req,res) => {
     try {
-        if (!req.file) return res.status(400).json({
-            message: "File not uploaded."
-        })
+        if (!req.file) return res.status(400).json({ message: "File not uploaded." })
         console.log(req.file)
         let uploadedFile;
         try {
