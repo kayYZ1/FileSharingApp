@@ -4,11 +4,9 @@ import {v2 as cloudinary} from "cloudinary"
 
 const router = express.Router()
 
-const storage = multer.diskStorage({})
+const storage = multer.diskStorage({});
 
-let upload = multer({
-    storage
-})
+let upload = multer({ storage })
 
 router.post("/upload", upload.single("myFile"), async (req,res) => {
     try {
