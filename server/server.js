@@ -1,32 +1,34 @@
 import express from "express";
-import cors from "cors"
-import dotenv from "dotenv"
-import {v2 as cloudinary} from "cloudinary"
+import cors from "cors";
+import dotenv from "dotenv";
+import { v2 as cloudinary } from "cloudinary";
 
-import fileRoute from "./routes/files.js"
+import fileRoute from "./routes/fileRoutes.js";
 import connectionDB from "./config/db.js";
 
-const app = express()
+const app = express();
 
-dotenv.config()
+dotenv.config();
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_API_CLOUD,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-})
+  cloud_name: process.env.CLOUDINARY_API_CLOUD,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-connectionDB()
+connectionDB();
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({
-    extended: true
-}))
-app.use("/api/files", fileRoute)
+app.use(cors());
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use("/api/files", fileRoute);
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-    console.log(`Server is listening on ${PORT}`)
+  console.log(`Server is listening on ${PORT}`);
 });
