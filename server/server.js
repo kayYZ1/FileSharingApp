@@ -25,7 +25,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/api/files", fileRoute);
+app.use("/file", fileRoute);
 
 const PORT = process.env.PORT;
 
