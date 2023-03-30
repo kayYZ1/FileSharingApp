@@ -39,7 +39,7 @@ export default function Home() {
       <div className="w-96 flex flex-col items-center bg-slate-100 shadow-xl rounded-xl justify-center">
         <DropZoneComponent setFile={setFile} />
 
-        {file !== null && (
+        {file && (
           <RenderFile
             file={{
               format: file.type.split("/")[1],
