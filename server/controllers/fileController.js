@@ -20,8 +20,8 @@ export const addFile = async (req, res) => {
       return res.status(400).json({ message: "Cloudinary error" });
     }
     const { originalname } = req.file;
-    const { bytes, format } = uploadedFile;
-    if (!uploadedFile.secure_url) {
+    const { bytes, format, secure_url } = uploadedFile;
+    if (!secure_url) {
       return res
         .status(400)
         .json({ message: "Cloudinary error: secure_url not found." });
@@ -30,8 +30,8 @@ export const addFile = async (req, res) => {
     const file = await File.create({
       filename: originalname,
       sizeInBytes: bytes,
-      secure_url: uploadedFile.secure_url,
-      format,
+      secureUrl: secure_url,
+      format
     });
     res.status(200).json(file);
   } catch (error) {
