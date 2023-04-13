@@ -10,6 +10,6 @@ const storage = multer.diskStorage({});
 let upload = multer({ storage });
 
 router.post("/upload", upload.single("myFile"), addFile);
-router.post("/:id", getFile)
+router.get("/:id", getFile)
 
 export default router;

@@ -27,17 +27,24 @@ export default function Home() {
       });
       setDownloadPageLink(data.downloadPageLink);
       setId(data.id);
+      setUploadState("Uploaded")
     } catch (error) {
       console.log(error.response.data);
       setUploadState("Upload failed");
     }
   };
 
+  const reset = async () => {
+    setFile(null)
+    setDownloadPageLink(null)
+    setUploadState("Upload")
+  }
+
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="my-4 text-3xl font-medium">Share a pdf</h1>
+      <h1 className="my-4 text-3xl font-medium">PDF Uploader</h1>
       <div className="w-96 flex flex-col items-center bg-slate-100 shadow-xl rounded-xl justify-center">
-        <DropZoneComponent setFile={setFile} />
+        {!downloadPageLink && <DropZoneComponent setFile={setFile} /> }
 
         {file && (
           <RenderFile
@@ -49,14 +56,19 @@ export default function Home() {
           />
         )}
 
-        <button
-          className="w-44 my-5 bg-slate-300 p-2 rounded-md focus:outline-none"
-          onClick={handleUpload}
-        >
-          {uploadState}
-        </button>
+        {!downloadPageLink && file && (
+          <button className="w-44 my-5 bg-slate-300 p-2 rounded-md focus:outline-none" onClick={handleUpload}>
+            {uploadState}
+          </button>
+        )}
+
         {downloadPageLink && (
-          <DownloadFile downloadPageLink={downloadPageLink} />
+          <div className="p-2 text-center">
+            <DownloadFile downloadPageLink={downloadPageLink}/>
+            <button className="w-44 my-5 bg-slate-300 p-2 rounded-md focus:outline-none" onClick={reset}>
+              Upload new file
+            </button>
+          </div>
         )}
       </div>
     </div>
