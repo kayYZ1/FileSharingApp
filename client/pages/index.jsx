@@ -8,7 +8,7 @@ import DownloadFile from "../components/DownloadFile.jsx";
 export default function Home() {
   const [file, setFile] = useState(null);
   const [id, setId] = useState(null);
-  const [downloadPageLink, setDownloadPageLink] = useState(null);
+  const [downloadLink, setDownloadLink] = useState(null);
   const [uploadState, setUploadState] = useState("Upload");
 
   const handleUpload = async () => {
@@ -25,9 +25,12 @@ export default function Home() {
           "Content-Type": "multipart/form-data",
         },
       });
-      setDownloadPageLink(data.downloadPageLink);
+      setDownloadLink(data.downloadLink);
       setId(data.id);
       setUploadState("Uploaded")
+      console.log(data)
+      console.log(data.id)
+      console.log(data.downloadLink);
     } catch (error) {
       console.log(error.response.data);
       setUploadState("Upload failed");
@@ -36,15 +39,15 @@ export default function Home() {
 
   const reset = async () => {
     setFile(null)
-    setDownloadPageLink(null)
+    setDownloadLink(null)
     setUploadState("Upload")
   }
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="my-4 text-3xl font-medium">PDF Uploader</h1>
+      <h1 className="my-5 text-3xl font-medium">PDF Uploader</h1>
       <div className="w-96 flex flex-col items-center bg-slate-100 shadow-xl rounded-xl justify-center">
-        {!downloadPageLink && <DropZoneComponent setFile={setFile} /> }
+        {!downloadLink && <DropZoneComponent setFile={setFile} /> }
 
         {file && (
           <RenderFile
@@ -56,16 +59,16 @@ export default function Home() {
           />
         )}
 
-        {!downloadPageLink && file && (
-          <button className="w-44 my-5 bg-slate-300 p-2 rounded-md focus:outline-none" onClick={handleUpload}>
+        {!downloadLink && file && (
+          <button className="w-44 my-4 bg-slate-300 p-2 rounded-md focus:outline-none" onClick={handleUpload}>
             {uploadState}
           </button>
         )}
 
-        {downloadPageLink && (
+        {downloadLink && (
           <div className="p-2 text-center">
-            <DownloadFile downloadPageLink={downloadPageLink}/>
-            <button className="w-44 my-5 bg-slate-300 p-2 rounded-md focus:outline-none" onClick={reset}>
+            <DownloadFile downloadLink={downloadLink}/>
+            <button className="w-44 my-2 bg-slate-300 p-2 focus:outline-none" onClick={reset}>
               Upload new file
             </button>
           </div>

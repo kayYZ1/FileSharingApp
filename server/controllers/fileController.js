@@ -33,7 +33,10 @@ export const addFile = async (req, res) => {
       secureUrl: secure_url,
       format
     });
-    res.status(200).json(file);
+    res.status(200).json({
+      id: file._id,
+      downloadLink: `${process.env.API_BASE_ENDPOINT}/preview/${file._id}`
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
