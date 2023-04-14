@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import https from "https";
 
 import File from "../models/fileModel.js";
 
@@ -31,11 +32,11 @@ export const addFile = async (req, res) => {
       filename: originalname,
       sizeInBytes: bytes,
       secureUrl: secure_url,
-      format
+      format,
     });
     res.status(200).json({
       id: file._id,
-      downloadLink: `${process.env.API_BASE_ENDPOINT}/preview/${file._id}`
+      downloadLink: `${process.env.API_BASE_ENDPOINT}/preview/${file._id}`,
     });
   } catch (error) {
     console.log(error.message);
@@ -45,22 +46,39 @@ export const addFile = async (req, res) => {
   }
 };
 
-export const getFile = async(req, res) => {
+export const getFile = async (req, res) => {
   try {
-    const id = req.params.id
-    const file = await File.findById(id)
+    const id = req.params.id;
+    const file = await File.findById(id);
     if (!file) {
-      return res.status(404).json({ message: "File does not exist."} )
+      return res.status(404).json({ message: "File does not exist." });
     }
 
     const { filename, format, sizeInBytes } = file;
     return res.status(200).json({
-      name: filename, 
+      name: filename,
       format,
       sizeInBytes,
-      id
-    })
+      id,
+      downloadLink: `${process.env.API_BASE_ENDPOINT}/preview/${id}`,
+    });
   } catch (error) {
-    return res.status(500).json({ message: "Server error"} )
+    return res.status(500).json({ message: "Server error" });
   }
-}
+};
+
+export const downloadFile = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const file = await File.findById(id);
+    if (!file) {
+      return res.status(404).json({ message: "File does not exist." });
+    }
+
+    https.get(file.secure_url, (fileStream) => {
+      fileStream.pipe(res);
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Server error" });
+  }
+};
