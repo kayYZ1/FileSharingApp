@@ -11,7 +11,7 @@ const DownloadFile = ({ downloadLink }) => {
             <span className="break-all"></span>
             <button className="w-44 bg-slate-300 p-2 focus:outline-none">
               <Link href={downloadLink}>
-                Preview file.
+                Preview file
               </Link>
             </button>
         </div>
