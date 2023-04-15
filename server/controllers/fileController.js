@@ -74,10 +74,7 @@ export const downloadFile = async (req, res) => {
     if (!file) {
       return res.status(404).json({ message: "File does not exist." });
     }
-
-    https.get(file.secure_url, (fileStream) => {
-      fileStream.pipe(res);
-    });
+    https.get(file.secureUrl, (fileStream) => fileStream.pipe(res));
   } catch (error) {
     return res.status(500).json({ message: "Server error" });
   }

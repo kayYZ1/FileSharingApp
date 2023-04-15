@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="my-5 text-3xl font-medium">PDF Uploader</h1>
-      <div className="w-96 flex flex-col items-center bg-slate-100 shadow-xl rounded-xl justify-center">
+      <div className="w-96 flex flex-col items-center bg-slate-100 shadow-xl justify-center">
         {!downloadLink && <DropZoneComponent setFile={setFile} /> }
 
         {file && (
@@ -60,7 +60,7 @@ export default function Home() {
         )}
 
         {!downloadLink && file && (
-          <button className="w-44 my-4 bg-slate-300 p-2 rounded-md focus:outline-none" onClick={handleUpload}>
+          <button className="w-44 my-4 bg-slate-300 p-2 focus:outline-none" onClick={handleUpload}>
             {uploadState}
           </button>
         )}

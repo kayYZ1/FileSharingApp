@@ -18,12 +18,12 @@ const DropZoneComponent = ({ setFile }) => {
     <div className="p-4 w-full">
       <div
         {...getRootProps()}
-        className="w-full h-80 rounded-md cursor-pointer focus:outline-none"
+        className="w-full h-80 cursor-pointer focus:outline-none"
       >
         <input {...getInputProps()} />
         <div
           className={
-            "flex flex-col h-full space-y-3 border-2 border-slate-300 rounded-xl items-center justify-center" +
+            "flex flex-col h-full space-y-3 border-2 border-slate-300 items-center justify-center" +
             (isDragReject === true ? "border-red-500" : "") +
             (isDragAccept === true ? "border-green-500" : "")
           }
