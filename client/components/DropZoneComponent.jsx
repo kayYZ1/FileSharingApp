@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 const DropZoneComponent = ({ setFile }) => {
   const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles);
-    setFile(acceptedFiles[0])
+    setFile(acceptedFiles[0]);
   }, []);
 
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
@@ -39,7 +39,7 @@ const DropZoneComponent = ({ setFile }) => {
             <div>
               <p>Drag and drop your file</p>
               <p className="mt-2 text-base text-slate-500">
-                Only .pdf extension will be accepted.
+                Only .pdf extension will be accepted
               </p>
             </div>
           )}

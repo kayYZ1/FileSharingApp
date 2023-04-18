@@ -3,15 +3,17 @@ import React, { useState } from "react";
 import fileDownload from "js-file-download";
 
 import RenderFile from "../../../components/RenderFile";
-import CopiedLinkPopup from "../../../components/CopiedLinkPopup";
+import CopiedLinkPopup from "../../../components/Popups/CopiedLinkPopup";
 import PreviousPageButton from "../../../components/PreviousPageButton";
+import DownloadLinkPopup from "../../../components/Popups/DownloadLinkPopup";
 
 const index = ({
   file: { format, name, sizeInBytes, id },
   urlDownloadLink,
 }) => {
   const [isCopied, setIsCopied] = useState(false);
-  
+  const [isDownloaded, setIsDownloaded] = useState(false);
+
   const handleDownload = async () => {
     const { data } = await axios.get(
       `http://localhost:9999/file/${id}/download`,
@@ -20,11 +22,12 @@ const index = ({
       }
     );
     fileDownload(data, name);
+    setIsDownloaded(true);
   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(`http://localhost:3000/${urlDownloadLink}`);
-    setIsCopied(true)
+    setIsCopied(true);
   };
 
   return (
@@ -48,7 +51,12 @@ const index = ({
                 className="w-14 pr-3"
               />
             </button>
-            {isCopied ? <CopiedLinkPopup setIsCopied={setIsCopied}/> : ""}
+            {isCopied ? <CopiedLinkPopup setIsCopied={setIsCopied} /> : ""}
+            {isDownloaded ? (
+              <DownloadLinkPopup setIsDownloaded={setIsDownloaded} />
+            ) : (
+              ""
+            )}
             <button onClick={handleCopy}>
               <img
                 src="/assets/images/copy.jpg"
